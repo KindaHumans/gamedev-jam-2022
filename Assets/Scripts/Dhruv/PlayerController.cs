@@ -38,18 +38,18 @@ public class PlayerController : MonoBehaviour
             Movement();
 
 
-        if (this.tag == "Player" && Input.GetKeyDown(KeyCode.Return) && item != null)
+        if (this.tag == "Player" && Input.GetKeyDown(KeyCode.E) && item != null)
         {
             Debug.Log("Possess");
             rb.bodyType = RigidbodyType2D.Static;
             item.GetComponent<PlayerController>().enabled = true;
             item.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
-
+            this.GetComponent<SpriteRenderer>().enabled = false;
             this.enabled = false;
         }
 
-        else if (this.tag != "Player" && Input.GetKeyDown(KeyCode.Return))
+        else if (this.tag != "Player" && Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("Unposessing");
 
@@ -57,7 +57,9 @@ public class PlayerController : MonoBehaviour
 
             GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerController>().enabled = true;
             GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<SpriteRenderer>().enabled = true;
 
+            GameObject.FindGameObjectsWithTag("Player")[0].transform.position = this.transform.position;
 
             this.enabled = false;
         }
