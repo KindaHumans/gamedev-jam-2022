@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private bool possessing;
     private GameObject item;
 
+    // public GameObject clone;
+
 
     // Awake is called before whenever the script is enabled
     void Awake()
@@ -27,6 +29,8 @@ public class PlayerController : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         // rb.bodyType = RigidbodyType2D.Dynamic;
         speed = 5f;
+
+        // Instantiate(clone, new Vector3(3f, 3f, 0f), Quaternion.identity);
     }
 
     
@@ -34,8 +38,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        if (rb.bodyType != RigidbodyType2D.Static)
+        if (rb.bodyType != RigidbodyType2D.Static && this.tag != "StaticPossession")
             Movement();
+        
+        if (this.tag != "Player" && Input.GetKeyDown(KeyCode.Space))
+            DoAction();
 
 
         if (this.tag == "Player" && Input.GetKeyDown(KeyCode.E) && item != null)
@@ -90,5 +97,39 @@ public class PlayerController : MonoBehaviour
     void OnTriggerExit2D(Collider2D Collider2D)
     {
         item = null;
+    }
+
+
+
+    void DoAction()
+    {
+        Debug.Log("Action");
+        SpriteRenderer sr = this.GetComponent<SpriteRenderer>();
+
+        AudioSource audio = this.GetComponent<AudioSource>();
+
+        AudioClip clip;
+
+        if (sr.color == Color.blue)
+            sr.color = Color.red;
+        else
+        {
+            // Try-Catch error handling for if the length of a non-clone item is shorter than 7 characters
+            try 
+            {
+                if (this.name.Substring(this.name.Length - 7) == "(Clone)")
+                    clip = Resources.Load<AudioClip>("Audio/" + this.name.Substring(0, this.name.Length - 7));
+                
+                else
+                    clip = Resources.Load<AudioClip>("Audio/" + this.name);
+            }
+            catch {
+                    clip = Resources.Load<AudioClip>("Audio/" + this.name);}
+
+
+            // AudioClip clip = Resources.Load<AudioClip>("Audio/Toaster");
+            sr.color = Color.blue;
+            audio.PlayOneShot(clip);
+        }
     }
 }

@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -69,7 +69,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -102,6 +102,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -10225,9 +10237,9 @@ TextureImporter:
       roguelikeIndoor_transparent_253: -657009171
       roguelikeIndoor_transparent_461: 25059936
       roguelikeIndoor_transparent_48: -1284225635
-      roguelikeIndoor_transparent_337: 770232172
       roguelikeIndoor_transparent_476: 364742439
       roguelikeIndoor_transparent_439: 1638610346
+      roguelikeIndoor_transparent_337: 770232172
       roguelikeIndoor_transparent_82: -1241106994
       roguelikeIndoor_transparent_167: -1083759324
       roguelikeIndoor_transparent_81: -269510019
@@ -10329,12 +10341,12 @@ TextureImporter:
       roguelikeIndoor_transparent_251: 1861154529
       roguelikeIndoor_transparent_332: 217792603
       roguelikeIndoor_transparent_16: 868821747
-      roguelikeIndoor_transparent_427: 201722495
       roguelikeIndoor_transparent_445: -859775577
-      roguelikeIndoor_transparent_368: -745889833
+      roguelikeIndoor_transparent_427: 201722495
       roguelikeIndoor_transparent_402: 1159715298
       roguelikeIndoor_transparent_437: -1653015472
       roguelikeIndoor_transparent_209: 818884199
+      roguelikeIndoor_transparent_368: -745889833
       roguelikeIndoor_transparent_26: -2144446549
       roguelikeIndoor_transparent_414: 868535584
       roguelikeIndoor_transparent_194: -1870420593
@@ -10434,16 +10446,16 @@ TextureImporter:
       roguelikeIndoor_transparent_240: 1525013862
       roguelikeIndoor_transparent_131: -899677024
       roguelikeIndoor_transparent_13: 2097203954
+      roguelikeIndoor_transparent_377: 1170166016
       roguelikeIndoor_transparent_230: -1054446060
       roguelikeIndoor_transparent_312: -366139615
-      roguelikeIndoor_transparent_412: 1470096765
-      roguelikeIndoor_transparent_377: 1170166016
       roguelikeIndoor_transparent_363: -1335205237
       roguelikeIndoor_transparent_6: 1356960474
       roguelikeIndoor_transparent_208: 632653156
       roguelikeIndoor_transparent_292: 1221437851
       roguelikeIndoor_transparent_343: -613558991
       roguelikeIndoor_transparent_469: -55010519
+      roguelikeIndoor_transparent_412: 1470096765
       roguelikeIndoor_transparent_114: 1945321797
       roguelikeIndoor_transparent_198: 1844708712
       roguelikeIndoor_transparent_351: 217988712
@@ -10452,9 +10464,9 @@ TextureImporter:
       roguelikeIndoor_transparent_105: -895615590
       roguelikeIndoor_transparent_385: 1328284415
       roguelikeIndoor_transparent_31: 1496268366
-      roguelikeIndoor_transparent_197: 202806762
-      roguelikeIndoor_transparent_419: 1013846920
       roguelikeIndoor_transparent_473: 37825792
+      roguelikeIndoor_transparent_419: 1013846920
+      roguelikeIndoor_transparent_197: 202806762
       roguelikeIndoor_transparent_276: -630781924
       roguelikeIndoor_transparent_35: -1701682117
       roguelikeIndoor_transparent_279: -1351631229
@@ -10465,11 +10477,11 @@ TextureImporter:
       roguelikeIndoor_transparent_120: 565679722
       roguelikeIndoor_transparent_215: -1079744489
       roguelikeIndoor_transparent_53: 722468335
-      roguelikeIndoor_transparent_62: -1194597933
       roguelikeIndoor_transparent_430: 340617084
       roguelikeIndoor_transparent_178: 28958150
-      roguelikeIndoor_transparent_284: -1435733690
+      roguelikeIndoor_transparent_62: -1194597933
       roguelikeIndoor_transparent_219: 278736219
+      roguelikeIndoor_transparent_284: -1435733690
       roguelikeIndoor_transparent_163: 1011390463
       roguelikeIndoor_transparent_224: 1808707814
       roguelikeIndoor_transparent_362: 21426443
@@ -10513,22 +10525,22 @@ TextureImporter:
       roguelikeIndoor_transparent_135: 1037618026
       roguelikeIndoor_transparent_395: -538035413
       roguelikeIndoor_transparent_50: -2003599897
-      roguelikeIndoor_transparent_68: 2115642288
       roguelikeIndoor_transparent_372: -1728807316
+      roguelikeIndoor_transparent_428: -1995787917
       roguelikeIndoor_transparent_454: 676582543
       roguelikeIndoor_transparent_130: 970392877
-      roguelikeIndoor_transparent_236: -1260244348
       roguelikeIndoor_transparent_286: -915346729
-      roguelikeIndoor_transparent_340: 670698103
+      roguelikeIndoor_transparent_68: 2115642288
       roguelikeIndoor_transparent_365: -812490772
       roguelikeIndoor_transparent_111: -801372425
+      roguelikeIndoor_transparent_236: -1260244348
       roguelikeIndoor_transparent_179: 316096349
-      roguelikeIndoor_transparent_428: -1995787917
       roguelikeIndoor_transparent_132: 779272507
+      roguelikeIndoor_transparent_340: 670698103
       roguelikeIndoor_transparent_367: -1940955312
-      roguelikeIndoor_transparent_330: 423794463
       roguelikeIndoor_transparent_438: 368047782
       roguelikeIndoor_transparent_450: 819396935
+      roguelikeIndoor_transparent_330: 423794463
       roguelikeIndoor_transparent_394: 1102148922
       roguelikeIndoor_transparent_67: 1643428619
       roguelikeIndoor_transparent_277: 850704305
