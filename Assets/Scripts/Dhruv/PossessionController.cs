@@ -70,6 +70,13 @@ public class PossessionController : MonoBehaviour
     {
         if (collider.tag == "NPC")
             Debug.Log("Entering: " + collider.name);
+        try
+        {
+             collider.gameObject.GetComponent<EnemyPathfinding>().AlertAction(transform.position);
+        }
+        catch
+        {
+        }
 
     }
 
