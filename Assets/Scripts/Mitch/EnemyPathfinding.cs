@@ -15,11 +15,22 @@ public class EnemyPathfinding : MonoBehaviour
     {
         closest = PathFinder.instance.FindNearestNode(transform.position);
         goal = PathFinder.instance.FindNearestNode(new Vector3(-5, -2, 0));
+    }
+
+    public void AlertAction()
+    {
         PathFinder.instance.FindShortestPathOfPoints(closest, goal, PathLineType.Straight, Execution.Synchronous, (path) =>
         {
             pathFollower.Follow(path, 1, true);
         });
-        
+    }
+    public void AlertAction(Vector3 itemLocation)
+    {
+        goal = PathFinder.instance.FindNearestNode(itemLocation);
+        PathFinder.instance.FindShortestPathOfPoints(closest, goal, PathLineType.Straight, Execution.Synchronous, (path) =>
+        {
+            pathFollower.Follow(path, 1, true);
+        });
     }
 
     public void MoveTo(Vector3 point)
