@@ -5,31 +5,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Vector2 move;
-
     private float speed;
-    
     private Rigidbody2D rb;
 
-    // private bool possessing;
-    
-    private bool possessing;
-    private GameObject item;
+    private GameObject p_object;
 
-    // public GameObject clone;
-
-
-    // Awake is called before whenever the script is enabled
-    void Awake()
-    {
-    }
 
     // Start is called before the first frame update
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
-        // rb.bodyType = RigidbodyType2D.Dynamic;
         speed = 5f;
-
         // Instantiate(clone, new Vector3(3f, 3f, 0f), Quaternion.identity);
     }
 
@@ -37,37 +23,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (rb.bodyType != RigidbodyType2D.Static && this.tag != "StaticPossession")
-            Movement();
+        // Always have movement enabled for player, while script is enabled
+        Movement();
         
-        if (this.tag != "Player" && Input.GetKeyDown(KeyCode.Space))
-            DoAction();
 
-
-        if (this.tag == "Player" && Input.GetKeyDown(KeyCode.E) && item != null)
+        // Initiate possession of a specific possession object and transfer control to it
+        if (this.tag == "Player" && Input.GetKeyDown(KeyCode.E) && p_object != null)
         {
-            Debug.Log("Possess");
-            rb.bodyType = RigidbodyType2D.Static;
-            item.GetComponent<PlayerController>().enabled = true;
-            item.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            // Debug.Log("Possess");
 
+            // Set appropriate properties for the player
+            rb.bodyType = RigidbodyType2D.Static;
+            p_object.GetComponent<PossessionController>().enabled = true;
+            p_object.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            p_object.GetComponent<Collider2D>().enabled = false;
+
+            // Disable player sprite, then disable self script
             this.GetComponent<SpriteRenderer>().enabled = false;
-            this.enabled = false;
-        }
-
-        else if (this.tag != "Player" && Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("Unposessing");
-
-            rb.bodyType = RigidbodyType2D.Static;
-
-            GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerController>().enabled = true;
-            GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<SpriteRenderer>().enabled = true;
-
-            GameObject.FindGameObjectsWithTag("Player")[0].transform.position = this.transform.position;
-
             this.enabled = false;
         }
 
@@ -77,59 +49,24 @@ public class PlayerController : MonoBehaviour
     // Dictate player movement
     void Movement()
     {
-
         move.x = Input.GetAxisRaw("Horizontal");
         move.y = Input.GetAxisRaw("Vertical");
-
 
         rb.MovePosition(rb.position + move.normalized * speed * Time.fixedDeltaTime);
     }
 
 
+    // Checks for an object that is within the collider (allowing possession)
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Possess Optionv");
-        item = collider.gameObject;
-        // possess = true;
-
+        Debug.Log("Possess Option");
+        p_object = collider.gameObject;
     }
 
-    void OnTriggerExit2D(Collider2D Collider2D)
+    // Checks id objects are out of range, resetting possession parameters
+    void OnTriggerExit2D(Collider2D collider)
     {
-        item = null;
+        p_object = null;
     }
 
-
-
-    void DoAction()
-    {
-        Debug.Log("Action");
-        SpriteRenderer sr = this.GetComponent<SpriteRenderer>();
-
-        AudioSource audio = this.GetComponent<AudioSource>();
-
-        AudioClip clip;
-
-        if (sr.color == Color.blue)
-            sr.color = Color.red;
-        else
-        {
-            // Try-Catch error handling for if the length of a non-clone item is shorter than 7 characters
-            try 
-            {
-                if (this.name.Substring(this.name.Length - 7) == "(Clone)")
-                    clip = Resources.Load<AudioClip>("Audio/" + this.name.Substring(0, this.name.Length - 7));
-                
-                else
-                    clip = Resources.Load<AudioClip>("Audio/" + this.name);
-            }
-            catch {
-                    clip = Resources.Load<AudioClip>("Audio/" + this.name);}
-
-
-            // AudioClip clip = Resources.Load<AudioClip>("Audio/Toaster");
-            sr.color = Color.blue;
-            audio.PlayOneShot(clip);
-        }
-    }
 }
