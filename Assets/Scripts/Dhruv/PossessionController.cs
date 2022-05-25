@@ -48,7 +48,7 @@ public class PossessionController : MonoBehaviour
             player.transform.position = this.transform.position;
 
             // Enable collider trigger for player to possess object again, then disable self script
-            this.GetComponent<Collider2D>().enabled = true;
+            //this.GetComponent<Collider2D>().enabled = true;
             this.enabled = false;
         }
 
@@ -72,7 +72,11 @@ public class PossessionController : MonoBehaviour
             Debug.Log("Entering: " + collider.name);
         try
         {
-             collider.gameObject.GetComponent<EnemyPathfinding>().AlertAction(transform.position);
+            EnemyPathfinding enemyPathfinding = collider.gameObject.GetComponent<EnemyPathfinding>();
+            if(enemyPathfinding.alertState != EnemyPathfinding.AlertState.Chase)
+            {
+                enemyPathfinding.InvestigateBehavior(transform.position);
+            }
         }
         catch
         {
