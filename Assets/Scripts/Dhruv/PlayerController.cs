@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Static;
             p_object.GetComponent<PossessionController>().enabled = true;
             p_object.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            p_object.GetComponent<Collider2D>().enabled = false;
+            //p_object.GetComponent<Collider2D>().enabled = false;
 
             // Disable player sprite, then disable self script
             this.GetComponent<SpriteRenderer>().enabled = false;

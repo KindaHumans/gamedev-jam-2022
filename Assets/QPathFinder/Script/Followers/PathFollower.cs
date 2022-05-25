@@ -34,13 +34,17 @@ namespace QPathFinder
 
             StopFollowing();
             _currentIndex = 0;
+            enemyPathfinding.stopped = false;
             StartCoroutine(FollowPath());
         }
 
         // follow vertices 
 		public void Follow(List<Vector3> pointsToFollow, float moveSpeed, bool autoRotate)
         {
-            Follow ( pointsToFollow.Cast<System.Object>().ToList(), moveSpeed, autoRotate );
+            if(pointsToFollow != null && pointsToFollow.Count > 0)
+            {
+                Follow ( pointsToFollow.Cast<System.Object>().ToList(), moveSpeed, autoRotate );
+            }
         }
 
         // follow Nodes 
@@ -50,7 +54,8 @@ namespace QPathFinder
         }
 
         public void StopFollowing() 
-        { 
+        {
+            Debug.Log("stopping follow");
             StopAllCoroutines(); 
         }
         
