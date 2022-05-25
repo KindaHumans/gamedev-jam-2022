@@ -10,12 +10,16 @@ public class PlayerController : MonoBehaviour
 
     private GameObject p_object;
 
+    private ActionController actionC;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
         speed = 5f;
+
+        actionC = GameObject.FindGameObjectsWithTag("GameController")[0].GetComponent<ActionController>();
         // Instantiate(clone, new Vector3(3f, 3f, 0f), Quaternion.identity);
     }
 
@@ -30,17 +34,7 @@ public class PlayerController : MonoBehaviour
         // Initiate possession of a specific possession object and transfer control to it
         if (this.tag == "Player" && Input.GetKeyDown(KeyCode.E) && p_object != null)
         {
-            // Debug.Log("Possess");
-
-            // Set appropriate properties for the player
-            rb.bodyType = RigidbodyType2D.Static;
-            p_object.GetComponent<PossessionController>().enabled = true;
-            p_object.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            //p_object.GetComponent<Collider2D>().enabled = false;
-
-            // Disable player sprite, then disable self script
-            this.GetComponent<SpriteRenderer>().enabled = false;
-            this.enabled = false;
+            PossessObject();
         }
 
     }
@@ -59,14 +53,38 @@ public class PlayerController : MonoBehaviour
     // Checks for an object that is within the collider (allowing possession)
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Possess Option");
-        p_object = collider.gameObject;
+        if (collider.tag == "Untagged" || collider.tag == "StaticPossession")
+        {
+            Debug.Log("Possess Option");
+            actionC.TogglePossessBtn();
+            p_object = collider.gameObject;
+        }
     }
 
     // Checks id objects are out of range, resetting possession parameters
     void OnTriggerExit2D(Collider2D collider)
     {
-        p_object = null;
+        if (collider.tag == "Untagged" || collider.tag == "StaticPossession")
+        {
+            actionC.TogglePossessBtn();
+            p_object = null;
+        }
+    }
+
+
+    public void PossessObject()
+    {
+        // Debug.Log("Possess");
+
+        // Set appropriate properties for the player
+        rb.bodyType = RigidbodyType2D.Static;
+        p_object.GetComponent<PossessionController>().enabled = true;
+        p_object.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
+        // Disable player sprite, then disable self script
+        this.GetComponent<Collider2D>().enabled = false;
+        this.GetComponent<SpriteRenderer>().enabled = false;
+        this.enabled = false;
     }
 
 }

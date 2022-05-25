@@ -10,6 +10,8 @@ public class PossessionController : MonoBehaviour
 
     private GameObject player;
 
+    private ActionController actionC;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,8 @@ public class PossessionController : MonoBehaviour
         speed = 5f;
 
         player = GameObject.FindGameObjectsWithTag("Player")[0];
+        actionC = GameObject.FindGameObjectsWithTag("GameController")[0].GetComponent<ActionController>();
+        actionC.ToggleUnPossessBtn();
         // Instantiate(clone, new Vector3(3f, 3f, 0f), Quaternion.identity);
     }
 
@@ -36,20 +40,7 @@ public class PossessionController : MonoBehaviour
         // Stop possession the object and return control as main player (ghost)
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            // Debug.Log("Unposessing");
-
-            // Prevent object from dragging when collided with
-            rb.bodyType = RigidbodyType2D.Static;
-
-            // Set appropriate properties for the player
-            player.GetComponent<PlayerController>().enabled = true;
-            player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            player.GetComponent<SpriteRenderer>().enabled = true;
-            player.transform.position = this.transform.position;
-
-            // Enable collider trigger for player to possess object again, then disable self script
-            //this.GetComponent<Collider2D>().enabled = true;
-            this.enabled = false;
+            UnPossessObject();
         }
 
     }
@@ -139,5 +130,24 @@ public class PossessionController : MonoBehaviour
         audioRadius.enabled = true;
         yield return new WaitForSeconds(0.5f);
         audioRadius.enabled = false;
+    }
+
+    public void UnPossessObject()
+    {
+        // Debug.Log("Unposessing");
+
+        // Prevent object from dragging when collided with
+        rb.bodyType = RigidbodyType2D.Static;
+
+        // Set appropriate properties for the player
+        player.GetComponent<PlayerController>().enabled = true;
+        player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        player.GetComponent<SpriteRenderer>().enabled = true;
+        player.transform.position = this.transform.position;
+
+        // Enable collider trigger for player to possess object again, then disable self script
+        // this.GetComponent<Collider2D>().enabled = true;
+        player.GetComponent<Collider2D>().enabled = true;
+        this.enabled = false;
     }
 }
