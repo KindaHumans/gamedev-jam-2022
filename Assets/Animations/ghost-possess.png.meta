@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a03b77a38dd34d4aa88247058b9f10f2
+guid: e1e85da1cbb10dc698093af2d1dfb693
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ghost_0
+      name: ghost-possess_0
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +130,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90b6a06c6f6d33ba7885b0b9c30d91a8
-      internalID: 1117800348
+      spriteID: d2aba5ece9f161740917ce0f35905681
+      internalID: 1360247020
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_1
+      name: ghost-possess_1
       rect:
         serializedVersion: 2
         x: 32
@@ -151,14 +151,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 550bedf1e315f6a2499f36be4bc4fbfa
-      internalID: -806556929
+      spriteID: 0a355f30fa658e4f39fdd1762bd62075
+      internalID: 738023586
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_2
+      name: ghost-possess_2
       rect:
         serializedVersion: 2
         x: 64
@@ -172,14 +172,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0d190540325fb51a84a6e1ee6e8964b
-      internalID: -652627430
+      spriteID: 1ac53cef8f0382849af9041ce451b658
+      internalID: 410115158
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_3
+      name: ghost-possess_3
       rect:
         serializedVersion: 2
         x: 96
@@ -193,14 +193,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0841589b25ff44654a7c6528eb334ba7
-      internalID: 905683208
+      spriteID: 61779a16b242f086497437da156ff607
+      internalID: 1961855408
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_4
+      name: ghost-possess_4
       rect:
         serializedVersion: 2
         x: 128
@@ -214,14 +214,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c79040be125cbca9bbc529ea453a0657
-      internalID: -2048559522
+      spriteID: d8e245a50977b6b4e84d11c736873c37
+      internalID: -325116148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_5
+      name: ghost-possess_5
       rect:
         serializedVersion: 2
         x: 160
@@ -235,14 +235,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6b04eebd5332ca7abdcb864cfcb1863
-      internalID: -284227302
+      spriteID: 0d0181884b12fd895812a9a659c42f20
+      internalID: -1487606776
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_6
+      name: ghost-possess_6
       rect:
         serializedVersion: 2
         x: 192
@@ -256,14 +256,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22660a8a0b0f393c5a51b6bd8643630e
-      internalID: 1213303827
+      spriteID: b82442a4af8179b248088b09220eeb00
+      internalID: 890265043
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_7
+      name: ghost-possess_7
       rect:
         serializedVersion: 2
         x: 224
@@ -277,14 +277,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a3fcc0b4b90a6471ba95304977aa7c5c
-      internalID: 615556113
+      spriteID: 4aac6e86a8f552bfa8a5bcfa12003885
+      internalID: 65616253
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_8
+      name: ghost-possess_8
       rect:
         serializedVersion: 2
         x: 256
@@ -298,8 +298,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae8df98ea1ffffacfab2db44d55a1dcb
-      internalID: 1613715990
+      spriteID: f725e6607348667db9f888223a10a426
+      internalID: -1269222528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost-possess_9
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3a53c61ce32765fc8c97f39800d281a
+      internalID: 1651662043
       vertices: []
       indices: 
       edges: []
@@ -315,15 +336,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ghost_5: -284227302
-      ghost_0: 1117800348
-      ghost_7: 615556113
-      ghost_8: 1613715990
-      ghost_1: -806556929
-      ghost_3: 905683208
-      ghost_4: -2048559522
-      ghost_2: -652627430
-      ghost_6: 1213303827
+      ghost-possess_6: 890265043
+      ghost-possess_0: 1360247020
+      ghost-possess_9: 1651662043
+      ghost-possess_7: 65616253
+      ghost-possess_2: 410115158
+      ghost-possess_3: 1961855408
+      ghost-possess_1: 738023586
+      ghost-possess_4: -325116148
+      ghost-possess_8: -1269222528
+      ghost-possess_5: -1487606776
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
