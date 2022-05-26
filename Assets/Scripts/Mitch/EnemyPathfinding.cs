@@ -11,13 +11,16 @@ public class EnemyPathfinding : MonoBehaviour
     List<Vector3> path;
     [SerializeField] PathFollower pathFollower;
     [SerializeField] EnemyAlertStateManager enemyAlertStateManager;
+    [SerializeField] GameManager gameManager;
+    [SerializeField] GameObject deadBodyPrefab;
     Vector3 currentPosition;
     float mapBoundaryX = 5;
     float mapBoundaryY = 3;
     public bool stopped = true;
-    public enum AlertState {Neutral, Investigate, Cautious, Chase, InvestigateWaiting, CautiousWaiting}
+    public enum AlertState {Neutral, Investigate, Cautious, Chase, InvestigateWaiting, CautiousWaiting, F___ingDead}
     public AlertState alertState = AlertState.Neutral;
     float waitTime = 0.0f;
+    float chaseTime = 0.0f;
     Vector3 lastKnownPosition;
     public GameObject target;
     // Start is called before the first frame update
@@ -76,6 +79,13 @@ public class EnemyPathfinding : MonoBehaviour
             pathFollower.Follow(path, 1, true);
         });
     }
+    public void DeadBehavior()
+    {
+        Vector3 spawnPosition = transform.position;
+        Quaternion spawnRotation = transform.rotation;
+        Destroy(gameObject);
+        Instantiate(deadBodyPrefab, spawnPosition, spawnRotation);
+    }
 
     public void MoveTo(Vector3 point)
     {
@@ -120,12 +130,21 @@ public class EnemyPathfinding : MonoBehaviour
         else if(!stopped && alertState == AlertState.Chase)
         {
             ChaseBehavior(target.gameObject.transform.position);
+            if(chaseTime == 0.0f)
+            {
+                chaseTime = Time.time;
+            }
+            else if(Time.time - chaseTime > 5.0f)
+            {
+                gameManager.GameOver();
+            }
             //Debug.Log("target position: " + target.transform.position);
             //Debug.Log("NPC position " + transform.position);
             //Debug.Log("distance to target " + Vector3.Magnitude(transform.position - target.gameObject.transform.position));
             if(Vector3.Magnitude(transform.position - target.gameObject.transform.position) > 5)
             {
                 stopped = true;
+                chaseTime = 0.0f;
             }
         }
         else if(stopped && alertState == AlertState.Chase)
