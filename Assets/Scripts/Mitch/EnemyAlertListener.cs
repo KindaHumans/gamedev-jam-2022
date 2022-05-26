@@ -16,6 +16,10 @@ public class EnemyAlertListener : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if (Input.anyKeyDown)
+        // {
+        //     enemyPathfinding.DeadBehavior();
+        // }
         // if (Input.anyKeyDown && alertEvent != null)
         // {
         //     alertEvent.Invoke();

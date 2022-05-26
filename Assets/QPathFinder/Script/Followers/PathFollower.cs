@@ -55,7 +55,6 @@ namespace QPathFinder
 
         public void StopFollowing() 
         {
-            Debug.Log("stopping follow");
             StopAllCoroutines(); 
         }
         
