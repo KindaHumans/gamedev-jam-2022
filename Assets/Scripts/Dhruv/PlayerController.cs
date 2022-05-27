@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     // Checks for an object that is within the collider (allowing possession)
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Untagged" || collider.tag == "StaticPossession")
+        if (collider.tag == "Possession" || collider.tag == "StaticPossession")
         {
             Debug.Log("Possess Option");
             actionC.TogglePossessBtn();
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
     // Checks id objects are out of range, resetting possession parameters
     void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.tag == "Untagged" || collider.tag == "StaticPossession")
+        if (collider.tag == "Possession" || collider.tag == "StaticPossession")
         {
             actionC.TogglePossessBtn();
             p_object = null;
