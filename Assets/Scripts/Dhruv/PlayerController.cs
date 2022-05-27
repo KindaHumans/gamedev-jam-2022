@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     private ActionController actionC;
 
+    public Animator anim;
+
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +47,10 @@ public class PlayerController : MonoBehaviour
     {
         move.x = Input.GetAxisRaw("Horizontal");
         move.y = Input.GetAxisRaw("Vertical");
+        if (move.x > 0)
+            anim.SetBool("Right", true);
+        else if (move.x < 0)
+            anim.SetBool("Right", false);
 
         rb.MovePosition(rb.position + move.normalized * speed * Time.fixedDeltaTime);
     }
@@ -55,7 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.tag == "Possession" || collider.tag == "StaticPossession")
         {
-            Debug.Log("Possess Option");
+            // Debug.Log("Possess Option");
             actionC.TogglePossessBtn();
             p_object = collider.gameObject;
         }
@@ -78,23 +84,31 @@ public class PlayerController : MonoBehaviour
 
         // Set appropriate properties for the player
         rb.bodyType = RigidbodyType2D.Static;
-        p_object.GetComponent<PossessionController>().enabled = true;
         p_object.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        
+        // Show UI buttons
+        actionC.ToggleUnPossessBtn();
+        actionC.ToggleAction1Btn();
+        actionC.ToggleAction2Btn();
+
+        // Play Animation
+        anim.SetBool("Possess", true);
+        StopAllCoroutines();
+        StartCoroutine("HideGhost", p_object);
 
         // Disable player sprite, then disable self script
         this.GetComponent<Collider2D>().enabled = false;
-<<<<<<< Updated upstream
-=======
         this.enabled = false;
     }
 
 
     IEnumerator HideGhost(GameObject p_object)
     {
-        yield return new WaitForSeconds(0.5f);
->>>>>>> Stashed changes
+        yield return new WaitForSeconds(0.25f);
         this.GetComponent<SpriteRenderer>().enabled = false;
-        this.enabled = false;
+        p_object.GetComponent<PossessionController>().enabled = true;
+        yield return new WaitForSeconds(0.25f);
+        p_object.GetComponent<PossessionController>().animP.SetBool("PossessObj", true);
     }
 
 }
