@@ -152,6 +152,9 @@ public class PossessionController : MonoBehaviour
     {
         // Debug.Log("Unposessing");
 
+        GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<CameraFollow>().ghost = player.transform;
+
+
         // Prevent object from dragging when collided with
         rb.bodyType = RigidbodyType2D.Static;
 

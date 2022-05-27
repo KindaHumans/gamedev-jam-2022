@@ -82,6 +82,8 @@ public class PlayerController : MonoBehaviour
     {
         // Debug.Log("Possess");
 
+        GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<CameraFollow>().ghost = p_object.transform;
+
         // Set appropriate properties for the player
         rb.bodyType = RigidbodyType2D.Static;
         p_object.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
@@ -104,10 +106,10 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator HideGhost(GameObject p_object)
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         this.GetComponent<SpriteRenderer>().enabled = false;
         p_object.GetComponent<PossessionController>().enabled = true;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.2f);
         p_object.GetComponent<PossessionController>().animP.SetBool("PossessObj", true);
     }
 
