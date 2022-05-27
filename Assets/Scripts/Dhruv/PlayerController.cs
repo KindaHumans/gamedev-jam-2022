@@ -83,6 +83,16 @@ public class PlayerController : MonoBehaviour
 
         // Disable player sprite, then disable self script
         this.GetComponent<Collider2D>().enabled = false;
+<<<<<<< Updated upstream
+=======
+        this.enabled = false;
+    }
+
+
+    IEnumerator HideGhost(GameObject p_object)
+    {
+        yield return new WaitForSeconds(0.5f);
+>>>>>>> Stashed changes
         this.GetComponent<SpriteRenderer>().enabled = false;
         this.enabled = false;
     }

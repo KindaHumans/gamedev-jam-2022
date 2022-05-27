@@ -272,8 +272,13 @@ GameObject:
   - component: {fileID: 322289867}
   - component: {fileID: 322289870}
   m_Layer: 0
+<<<<<<< Updated upstream
   m_Name: Toaster
   m_TagString: Possession
+=======
+  m_Name: Static
+  m_TagString: StaticPossession
+>>>>>>> Stashed changes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
