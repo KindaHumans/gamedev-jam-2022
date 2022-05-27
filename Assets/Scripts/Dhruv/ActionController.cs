@@ -12,6 +12,9 @@ public class ActionController : MonoBehaviour
     private PlayerController player;
 
 
+    [HideInInspector]
+    public float timestamp;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,15 +61,35 @@ public class ActionController : MonoBehaviour
 
     public void UnPossessObjectBtn()
     {
+        GetCurrentItem().UnPossessObject();
+    }
+
+    public void UseAttackBtn()
+    {
+        // GetCurrentItem().UnPossessObject();
+    }
+
+    public void UseSoundBtn()
+    {
+        if (timestamp <= Time.time)
+        {
+            timestamp = Time.time + 0.7f;
+            GetCurrentItem().DoAction();
+        }
+    }
+
+    private PossessionController GetCurrentItem()
+    {
         PossessionController[] myItems = FindObjectsOfType(typeof(PossessionController)) as PossessionController[];
-        Debug.Log ("Found " + myItems.Length + " instances with this script attached");
+        // Debug.Log ("Found " + myItems.Length + " instances with this script attached");
         foreach(PossessionController item in myItems)
         {
             if (item.isActiveAndEnabled)
             {
-                item.UnPossessObject();
-                ToggleUnPossessBtn();
+                return item;
             }
         }
+        return null;
     }
+
 }

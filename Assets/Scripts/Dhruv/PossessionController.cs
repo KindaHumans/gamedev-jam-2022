@@ -12,6 +12,13 @@ public class PossessionController : MonoBehaviour
 
     private ActionController actionC;
 
+    public Animator animP;
+
+
+    [HideInInspector]
+    public float timestamp;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +28,9 @@ public class PossessionController : MonoBehaviour
 
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         actionC = GameObject.FindGameObjectsWithTag("GameController")[0].GetComponent<ActionController>();
-        actionC.ToggleUnPossessBtn();
+
+        animP = this.transform.GetChild(0).GetComponent<Animator>();
+
         // Instantiate(clone, new Vector3(3f, 3f, 0f), Quaternion.identity);
     }
 
@@ -35,7 +44,13 @@ public class PossessionController : MonoBehaviour
         
         // Allow object to perform an action
         if (Input.GetKeyDown(KeyCode.Space))
-            DoAction();
+        {
+            if (timestamp <= Time.time)
+            {
+                timestamp = Time.time + 0.7f;
+                DoAction();
+            }
+        }
 
         // Stop possession the object and return control as main player (ghost)
         if (Input.GetKeyDown(KeyCode.Q))
@@ -60,7 +75,7 @@ public class PossessionController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == "NPC")
-            Debug.Log("Entering: " + collider.name);
+            // Debug.Log("Entering: " + collider.name);
         try
         {
             EnemyPathfinding enemyPathfinding = collider.gameObject.GetComponent<EnemyPathfinding>();
@@ -84,7 +99,7 @@ public class PossessionController : MonoBehaviour
 
 
     // Perform an action when possessing something, actions may differ
-    void DoAction()
+    public void DoAction()
     {
         // Debug.Log("Action");
 
@@ -92,11 +107,12 @@ public class PossessionController : MonoBehaviour
         AudioSource audio = this.transform.GetChild(1).GetComponent<AudioSource>();
         AudioClip clip;
 
+        animP.SetTrigger("Action");
         // If-else statement to check the current state of the object and perform an action accordingly
-        if (sr.color == Color.blue)
-            sr.color = Color.red;
-        else
-        {
+        // if (sr.color == Color.blue)
+            // sr.color = Color.red;
+        // else
+        // {
             // Try-Catch error handling for if the length of a non-clone item is shorter than 7 characters
             // Audio clip is set and played once every two actions (account for once being a reset state)
             try 
@@ -116,9 +132,9 @@ public class PossessionController : MonoBehaviour
             StartCoroutine("SoundTimer");
 
             // Change state of object and play sound accordingly            
-            sr.color = Color.blue;
+            // sr.color = Color.blue;
             audio.PlayOneShot(clip);
-        }
+        // }
     }
 
 
@@ -141,9 +157,18 @@ public class PossessionController : MonoBehaviour
 
         // Set appropriate properties for the player
         player.GetComponent<PlayerController>().enabled = true;
+        player.GetComponent<PlayerController>().anim.SetBool("Possess", false);
+        player.GetComponent<PlayerController>().anim.SetBool("Right", false);
         player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         player.GetComponent<SpriteRenderer>().enabled = true;
         player.transform.position = this.transform.position;
+
+        animP.SetBool("PossessObj", false);
+
+
+        actionC.ToggleUnPossessBtn();
+        actionC.ToggleAction1Btn();
+        actionC.ToggleAction2Btn();
 
         // Enable collider trigger for player to possess object again, then disable self script
         // this.GetComponent<Collider2D>().enabled = true;
