@@ -8,6 +8,7 @@ TagManager:
   - NPC
   - Sound
   - Possession
+  - GameManager
   layers:
   - Default
   - TransparentFX

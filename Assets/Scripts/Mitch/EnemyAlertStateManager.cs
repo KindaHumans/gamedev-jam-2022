@@ -5,9 +5,11 @@ using UnityEngine;
 public class EnemyAlertStateManager : MonoBehaviour
 {
     [SerializeField] EnemyPathfinding enemyPathfinding;
+    [SerializeField] GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         // set up triggerenter methods to detect posessed objects, and set alert to red when detected
         // set up trigger exit methods, then wait a few seconds before setting alert state to yellow, then again for neutral
     }
@@ -30,6 +32,7 @@ public class EnemyAlertStateManager : MonoBehaviour
             enemyPathfinding.target = collider.gameObject;
             enemyPathfinding.alertState = EnemyPathfinding.AlertState.Chase;
             enemyPathfinding.stopped = false;
+            gameManager.spawnDelay = 1.0f;
         }
     }
     void OnTriggerExit2D(Collider2D collider)
