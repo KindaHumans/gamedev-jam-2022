@@ -86,7 +86,9 @@ public class PlayerController : MonoBehaviour
 
         // Set appropriate properties for the player
         rb.bodyType = RigidbodyType2D.Static;
-        p_object.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        
+        if (p_object.tag != "StaticPossession")
+            p_object.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         
         // Show UI buttons
         actionC.ToggleUnPossessBtn();
