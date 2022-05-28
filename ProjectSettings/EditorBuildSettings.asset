@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/James/LevelT.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainGame.unity
     guid: ee5223ffaaf74b94c8558c0790dbd067
+  - enabled: 1
+    path: Assets/Scenes/Final/FinalMap.unity
+    guid: 2a2619fcc2b1cf847a9e9d29d95c4468
   - enabled: 1
     path: Assets/Scenes/Ellie/MainMenu_EW.unity
     guid: 4c9aa5c7086bfa045a2b2b5da230a7b8
