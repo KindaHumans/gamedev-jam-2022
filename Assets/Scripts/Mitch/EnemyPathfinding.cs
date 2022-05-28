@@ -14,10 +14,12 @@ public class EnemyPathfinding : MonoBehaviour
     [SerializeField] GameManager gameManager;
     [SerializeField] GameObject deadBodyPrefab;
     Vector3 currentPosition;
-    float mapBoundaryX = 5;
-    float mapBoundaryY = 3;
+    float mapRangeX = 10; //-12 to 8
+    float mapCenterX = -2;
+    float mapRangeY = 9; // -5 to 13
+    float mapCenterY = 4;
     public bool stopped = true;
-    public enum AlertState {Neutral, Investigate, Cautious, Chase, InvestigateWaiting, CautiousWaiting, F___ingDead}
+    public enum AlertState {Neutral, Investigate, Cautious, Chase, InvestigateWaiting, CautiousWaiting}
     public AlertState alertState = AlertState.Neutral;
     float waitTime = 0.0f;
     float chaseTime = 0.0f;
@@ -26,6 +28,7 @@ public class EnemyPathfinding : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //closest = PathFinder.instance.FindNearestNode(transform.position);
         //goal = PathFinder.instance.FindNearestNode(new Vector3(-5, -2, 0));
         //NeutralStateBehavior();
@@ -34,8 +37,8 @@ public class EnemyPathfinding : MonoBehaviour
     void NeutralBehavior()
     {
         closest = PathFinder.instance.FindNearestNode(transform.position);
-        float randomX = Random.Range(-mapBoundaryX, mapBoundaryX);
-        float randomY = Random.Range(-mapBoundaryY, mapBoundaryY);
+        float randomX = Random.Range(mapCenterX - mapRangeX, mapCenterX + mapRangeX);
+        float randomY = Random.Range(mapCenterY - mapRangeY, mapCenterY + mapRangeY);
         goal = PathFinder.instance.FindNearestNode(new Vector3(randomX, randomY, 0));
         PathFinder.instance.FindShortestPathOfPoints(closest, goal, PathLineType.Straight, Execution.Synchronous, (path) =>
         {
@@ -151,6 +154,7 @@ public class EnemyPathfinding : MonoBehaviour
         {
             alertState = AlertState.CautiousWaiting;
             waitTime = Time.time;
+            gameManager.spawnDelay = 10.0f;
         }
         else if(stopped && alertState == AlertState.CautiousWaiting)
         {
@@ -177,5 +181,21 @@ public class EnemyPathfinding : MonoBehaviour
         alertState = AlertState.Neutral;
         enemyAlertStateManager.UpdateAlertState();
         yield return new WaitForSeconds(3.0f);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("collision with " + collision.gameObject.name);
+        if((collision.gameObject.tag == "Possession" || collision.gameObject.tag == "StaticPossession" || collision.gameObject.name == "Walls"))
+        {
+            Debug.Log("Blocked");
+            Vector3 forceDirection = (collision.gameObject.transform.position - transform.position).normalized;
+            //collision.gameObject.transform.Translate(forceDirection);
+            //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(forceDirection * 100, ForceMode2D.Impulse);
+            StopFollowing();
+            stopped = true;
+            alertState = AlertState.Neutral;
+            NeutralBehavior();
+        }
     }
 }

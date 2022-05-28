@@ -75,11 +75,11 @@ public class PossessionController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == "NPC")
-            // Debug.Log("Entering: " + collider.name);
+            //Debug.Log("Entering: " + collider.name);
         try
         {
             EnemyPathfinding enemyPathfinding = collider.gameObject.GetComponent<EnemyPathfinding>();
-            if(enemyPathfinding.alertState != EnemyPathfinding.AlertState.Chase)
+            if(this.isActiveAndEnabled && enemyPathfinding.alertState != EnemyPathfinding.AlertState.Chase)
             {
                 enemyPathfinding.InvestigateBehavior(transform.position);
             }
