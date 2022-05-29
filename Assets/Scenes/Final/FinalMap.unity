@@ -2275,6 +2275,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Faucet
       objectReference: {fileID: 0}
+    - target: {fileID: 7225504791809548190, guid: ef91ecf6f99ac9e4b94d15d6281f62be, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 99c1454c0d449b047bd80601286c0eb4, type: 3}
+    - target: {fileID: 7225504791809548190, guid: ef91ecf6f99ac9e4b94d15d6281f62be, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7225504792160777610, guid: ef91ecf6f99ac9e4b94d15d6281f62be, type: 3}
       propertyPath: m_SortingOrder
       value: 1
