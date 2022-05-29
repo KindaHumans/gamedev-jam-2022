@@ -154,7 +154,6 @@ public class EnemyPathfinding : MonoBehaviour
         {
             alertState = AlertState.CautiousWaiting;
             waitTime = Time.time;
-            gameManager.spawnDelay = 10.0f;
         }
         else if(stopped && alertState == AlertState.CautiousWaiting)
         {
@@ -174,6 +173,10 @@ public class EnemyPathfinding : MonoBehaviour
         {
             NeutralBehavior();
         }
+        if(alertState != AlertState.Chase)
+        {
+            gameManager.spawnDelay = 10.0f;
+        }
     }
 
     IEnumerator WaitThenResumePatrol()
@@ -185,10 +188,10 @@ public class EnemyPathfinding : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("collision with " + collision.gameObject.name);
+        //Debug.Log("collision with " + collision.gameObject.name);
         if((collision.gameObject.tag == "Possession" || collision.gameObject.tag == "StaticPossession" || collision.gameObject.name == "Walls"))
         {
-            Debug.Log("Blocked");
+            //Debug.Log("Blocked");
             Vector3 forceDirection = (collision.gameObject.transform.position - transform.position).normalized;
             //collision.gameObject.transform.Translate(forceDirection);
             //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(forceDirection * 100, ForceMode2D.Impulse);
