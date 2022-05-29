@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(enemyPrefab, enemyPrefab.transform.position, enemyPrefab.transform.rotation);
             spawnTimer = Time.time;
+            if(!gameStart)
+            {
+                gameStart = true;
+            }
         }
         if(gameStart)
         {
