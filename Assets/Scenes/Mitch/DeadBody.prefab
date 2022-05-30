@@ -87,6 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animP: {fileID: 0}
   timestamp: 0
+  go: []
 --- !u!1 &6463109682208088451
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +160,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1839011299, guid: 56d1d6d87df0c59a79391f2e1b47f992, type: 3}
   m_Color: {r: 0.73948735, g: 0.9528302, b: 0.73260057, a: 1}
   m_FlipX: 0

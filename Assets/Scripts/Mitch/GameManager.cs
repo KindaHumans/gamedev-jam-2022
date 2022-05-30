@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     bool gameStart = false;
     float spawnTimer;
-    public float spawnDelay = 10.0f;
+    public float spawnDelay = 15.0f;
     [SerializeField] GameObject enemyPrefab;
     // Start is called before the first frame update
     void Start()
