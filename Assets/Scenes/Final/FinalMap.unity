@@ -5809,6 +5809,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toaster
       objectReference: {fileID: 0}
+    - target: {fileID: 8667500112233491285, guid: 2e7966a8582399c439986eedeac7d188, type: 3}
+      propertyPath: electrocuteSound
+      value: 
+      objectReference: {fileID: 2497479546719818411, guid: 83eb90835411a0a45aa0f4219328f757, type: 3}
     - target: {fileID: 8667500112233491286, guid: 2e7966a8582399c439986eedeac7d188, type: 3}
       propertyPath: m_RootOrder
       value: 2
