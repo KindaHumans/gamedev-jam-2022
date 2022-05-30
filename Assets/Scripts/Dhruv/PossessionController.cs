@@ -22,6 +22,8 @@ public class PossessionController : MonoBehaviour
 
     private bool sound;
 
+    [SerializeField] AudioSource electrocuteSound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -113,8 +115,8 @@ public class PossessionController : MonoBehaviour
         // }
         if (this.tag == "Possession" && collider.tag != "Untagged" && Vector3.Distance(this.transform.position, collider.transform.position) >= 2f)
         {
-            Debug.Log("Leaving: " + collider.name);
-            Debug.Log(Vector3.Distance(this.transform.position, collider.transform.position));
+            //Debug.Log("Leaving: " + collider.name);
+            //Debug.Log(Vector3.Distance(this.transform.position, collider.transform.position));
             if(go.Contains(collider.gameObject))
             {
                 go.Remove(collider.gameObject);
@@ -181,16 +183,21 @@ public class PossessionController : MonoBehaviour
         }
     }
 
-
-    // Kill npc from here, Mitch
     public void DoKill()
     {   
 
         animP.SetTrigger("Kill");
 
-        Debug.Log(NPC);
+        //Debug.Log(NPC);
 
-        NPC.transform.GetChild(1).GetComponent<AudioSource>().Play();
+        AudioSource sound = Instantiate(electrocuteSound, NPC.transform.position, NPC.transform.rotation);
+
+        sound.Play();
+
+        //NPC.transform.GetChild(1).GetComponent<AudioSource>().Play();
+
+        EnemyPathfinding enemyPathfinding = NPC.GetComponent<EnemyPathfinding>();
+        enemyPathfinding.DeadBehavior();
     }
 
     // Coroutine function to simulate sound effect radius

@@ -25,6 +25,10 @@ public class EnemyPathfinding : MonoBehaviour
     float chaseTime = 0.0f;
     Vector3 lastKnownPosition;
     public GameObject target;
+    [SerializeField] SpriteRenderer neutralSprite;
+    [SerializeField] SpriteRenderer investigateSprite;
+    [SerializeField] SpriteRenderer cautiousSprite;
+    [SerializeField] SpriteRenderer chaseSprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -122,6 +126,11 @@ public class EnemyPathfinding : MonoBehaviour
     void Update()
     {
         //Debug.Log(alertState);
+        if(alertState != AlertState.Chase)
+        {
+            chaseTime = 0.0f;
+            gameManager.spawnDelay = 15.0f;
+        }
         if(stopped && alertState == AlertState.Investigate || alertState == AlertState.Cautious)
         {
             alertState = AlertState.InvestigateWaiting;
@@ -146,6 +155,7 @@ public class EnemyPathfinding : MonoBehaviour
             //Debug.Log("distance to target " + Vector3.Magnitude(transform.position - target.gameObject.transform.position));
             if(Vector3.Magnitude(transform.position - target.gameObject.transform.position) > 5)
             {
+                Debug.Log("stopped in chase");
                 stopped = true;
                 chaseTime = 0.0f;
             }
@@ -157,14 +167,14 @@ public class EnemyPathfinding : MonoBehaviour
         }
         else if(stopped && alertState == AlertState.CautiousWaiting)
         {
-            if(Time.time - waitTime > 3)
+            if(Time.time - waitTime > 2)
             {
                 alertState = AlertState.Investigate;
             }
         }
         else if(stopped && alertState == AlertState.InvestigateWaiting)
         {
-            if(Time.time - waitTime > 3)
+            if(Time.time - waitTime > 2)
             {
                 alertState = AlertState.Neutral;
             }
@@ -173,9 +183,30 @@ public class EnemyPathfinding : MonoBehaviour
         {
             NeutralBehavior();
         }
-        if(alertState != AlertState.Chase)
+        UpdateAlertIcon();
+    }
+
+    void UpdateAlertIcon()
+    {
+        SpriteRenderer spriteRenderer = transform.GetChild(2).GetComponent<SpriteRenderer>();
+        switch (alertState)
         {
-            gameManager.spawnDelay = 10.0f;
+            case AlertState.Neutral:
+            spriteRenderer.color = Color.white;
+            break;
+            case AlertState.Investigate:
+            case AlertState.InvestigateWaiting:
+            spriteRenderer.color = Color.green;
+            break;
+            case AlertState.Cautious:
+            case AlertState.CautiousWaiting:
+            spriteRenderer.color = Color.yellow;
+            break;
+            case AlertState.Chase:
+            spriteRenderer.color = Color.red;
+            break;
+            default:
+            break;
         }
     }
 
@@ -189,7 +220,7 @@ public class EnemyPathfinding : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         //Debug.Log("collision with " + collision.gameObject.name);
-        if((collision.gameObject.tag == "Possession" || collision.gameObject.tag == "StaticPossession" || collision.gameObject.name == "Walls"))
+        if(((collision.gameObject.tag == "Possession" || collision.gameObject.tag == "StaticPossession") && !collision.gameObject.GetComponent<PossessionController>().isActiveAndEnabled))// || collision.gameObject.name == "Walls")
         {
             //Debug.Log("Blocked");
             Vector3 forceDirection = (collision.gameObject.transform.position - transform.position).normalized;

@@ -32,7 +32,7 @@ public class EnemyAlertStateManager : MonoBehaviour
             enemyPathfinding.target = collider.gameObject;
             enemyPathfinding.alertState = EnemyPathfinding.AlertState.Chase;
             enemyPathfinding.stopped = false;
-            gameManager.spawnDelay = 1.0f;
+            //gameManager.spawnDelay = 5.0f;
         }
     }
     void OnTriggerExit2D(Collider2D collider)
