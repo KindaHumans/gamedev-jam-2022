@@ -18,6 +18,9 @@ public class PossessionController : MonoBehaviour
     [HideInInspector]
     public float timestamp;
 
+    private GameObject NPC;
+
+    private bool sound;
 
 
     // Start is called before the first frame update
@@ -38,6 +41,8 @@ public class PossessionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckForKillable();
+
         // Check if object is allowed to move
         if (rb.bodyType != RigidbodyType2D.Static && this.tag != "StaticPossession")
             Movement();
@@ -71,10 +76,13 @@ public class PossessionController : MonoBehaviour
     }
 
 
+    public List<GameObject> go = new List<GameObject> ();
+
     // Checks for an NPC that is within the collider (which activates when a sound is played)
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == "NPC")
+            NPC = collider.gameObject;
             //Debug.Log("Entering: " + collider.name);
         try
         {
@@ -88,13 +96,31 @@ public class PossessionController : MonoBehaviour
         {
         }
 
+        if (this.tag == "Possession")
+        {
+            if (!go.Contains(collider.gameObject) && collider.tag != "Untagged")
+                go.Add(collider.gameObject);
+        }
+
     }
 
     // Checks for an NPC is no longer in the collider (This method should likely not be needed)
     void OnTriggerExit2D(Collider2D collider)
     {
         // if (collider.tag == "NPC")
-        //     Debug.Log("Leaving: " + collider.name);
+        // if (collider.tag != "Untagged"){
+
+        // }
+        if (this.tag == "Possession" && collider.tag != "Untagged" && Vector3.Distance(this.transform.position, collider.transform.position) >= 2f)
+        {
+            Debug.Log("Leaving: " + collider.name);
+            Debug.Log(Vector3.Distance(this.transform.position, collider.transform.position));
+            if(go.Contains(collider.gameObject))
+            {
+                go.Remove(collider.gameObject);
+                NPC = null;
+            }
+        }
     }
 
 
@@ -115,17 +141,21 @@ public class PossessionController : MonoBehaviour
         // {
             // Try-Catch error handling for if the length of a non-clone item is shorter than 7 characters
             // Audio clip is set and played once every two actions (account for once being a reset state)
-            try 
-            {
-                if (this.name.Substring(this.name.Length - 7) == "(Clone)")
-                    clip = Resources.Load<AudioClip>("Audio/" + this.name.Substring(0, this.name.Length - 7));
+
+            // Debug.Log(this.name);
+            // try 
+            // {
+            //     if (this.name.Substring(this.name.Length - 7) == "(Clone)")
+            //         clip = Resources.Load<AudioClip>("Audio/" + this.name.Substring(0, this.name.Length - 7));
                 
-                else
-                    clip = Resources.Load<AudioClip>("Audio/" + this.name);
-            }
-            catch {
-                    clip = Resources.Load<AudioClip>("Audio/" + this.name);
-            }
+            //     else
+            //         clip = Resources.Load<AudioClip>("Audio/" + this.name);
+            // }
+            // catch {
+            //         clip = Resources.Load<AudioClip>("Audio/" + this.name);
+            // }
+
+            
 
             // Start coroutine to enable and disable collider trigger to simulate sound radius
             StopAllCoroutines();
@@ -133,19 +163,46 @@ public class PossessionController : MonoBehaviour
 
             // Change state of object and play sound accordingly            
             // sr.color = Color.blue;
-            audio.PlayOneShot(clip);
+            // audio.PlayOneShot(clip);
+            audio.Play();
         // }
     }
 
 
+    private void CheckForKillable()
+    {
+        if (this.tag == "Possession" && go.Count >= 3 && !actionC.action1Btn.activeSelf && !sound)
+        {
+            actionC.ToggleAction1Btn();
+        }
+        else if (this.tag == "Possession" && go.Count < 3 && actionC.action1Btn.activeSelf)
+        {
+            actionC.ToggleAction1Btn();
+        }
+    }
+
+
+    // Kill npc from here, Mitch
+    public void DoKill()
+    {   
+
+        animP.SetTrigger("Kill");
+
+        Debug.Log(NPC);
+
+        NPC.transform.GetChild(1).GetComponent<AudioSource>().Play();
+    }
+
     // Coroutine function to simulate sound effect radius
     IEnumerator SoundTimer()
     {
+        sound = true;
         Collider2D audioRadius = this.transform.GetChild(1).GetComponent<Collider2D>();
 
         audioRadius.enabled = true;
         yield return new WaitForSeconds(0.5f);
         audioRadius.enabled = false;
+        sound = false;
     }
 
     public void UnPossessObject()
@@ -170,8 +227,12 @@ public class PossessionController : MonoBehaviour
 
 
         actionC.ToggleUnPossessBtn();
-        actionC.ToggleAction1Btn();
         actionC.ToggleAction2Btn();
+
+        if (actionC.action1Btn.activeSelf)
+        {
+            actionC.ToggleAction1Btn();
+        }
 
         // Enable collider trigger for player to possess object again, then disable self script
         // this.GetComponent<Collider2D>().enabled = true;

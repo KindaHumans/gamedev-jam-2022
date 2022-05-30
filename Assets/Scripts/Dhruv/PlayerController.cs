@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
             p_object = collider.gameObject;
         }
     }
+    
 
     // Checks id objects are out of range, resetting possession parameters
     void OnTriggerExit2D(Collider2D collider)
@@ -86,13 +87,13 @@ public class PlayerController : MonoBehaviour
 
         // Set appropriate properties for the player
         rb.bodyType = RigidbodyType2D.Static;
-        
+
         if (p_object.tag != "StaticPossession")
             p_object.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            // actionC.ToggleAction1Btn();
         
         // Show UI buttons
         actionC.ToggleUnPossessBtn();
-        actionC.ToggleAction1Btn();
         actionC.ToggleAction2Btn();
 
         // Play Animation

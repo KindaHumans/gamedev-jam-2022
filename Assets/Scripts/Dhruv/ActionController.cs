@@ -67,6 +67,11 @@ public class ActionController : MonoBehaviour
     public void UseAttackBtn()
     {
         // GetCurrentItem().UnPossessObject();
+        if (timestamp <= Time.time)
+        {
+            timestamp = Time.time + 0.7f;
+            GetCurrentItem().DoKill();
+        }
     }
 
     public void UseSoundBtn()
