@@ -6,7 +6,11 @@ You, the protagonist ghost who died in what was probably a toaster-related incid
 Possess objects (currently only sink and toaster are possessible objects) to lure these home intruders to their untimely demise, and also make a bunch of delicious toast in the process. 
 
 wasd - move
+
 e - possess item
+
 q - unpossess item
+
 spacebar - item action
+
 r - attack
